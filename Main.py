@@ -9,7 +9,13 @@ from Artificial_Intelligence import *
 def main():
     game = Game()
     game.window()
-    game.game(Human(),Artificial_Intelligence())
+    choise = game.mode_choise()
+    if choise == "1":
+        game.game(Human(),Human())
+    elif choise == "2":
+        game.game(Human(),Artificial_Intelligence())
+    else:
+        game.game(Artificial_Intelligence(),Artificial_Intelligence())
 
 
 

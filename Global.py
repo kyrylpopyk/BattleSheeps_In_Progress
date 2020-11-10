@@ -5,7 +5,7 @@ import time
 import string
 
 class Global(object):
-
+    wizard_name = "Gandalf"
     font_color = {"Red":"\033[91m","Green":"\033[92m","Yellow":"\033[93m","Blue":"\033[94m","Purple":"\033[95m","Cyan":"\033[96m","White":"\033[97m"}
     font_reset = "\u001b[0m"
 
@@ -26,6 +26,9 @@ class Global(object):
     
     def clear_scr(self):
         os.system("cls || clear")
+
+    def wizard_talking(self,text):
+        print(self.wizard_name + ": " + text)
 
 class Style():
     font_purple = '\033[95m'

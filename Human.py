@@ -6,15 +6,14 @@ class Human(Inteligence):
         self.name = self.regestration_form()
 
     def regestration_form(self):
-        print("Hi, I am a Gandalf.")
         #time.sleep(0.5)
-        print("Lets start the registration.")
+        self.wizard_talking("Lets start the registration.")
         #time.sleep(0.5)
-        user_input = self.check_input("Please input Your name ----> ").capitalize()
+        user_input = self.check_input("Please input Your name - ").capitalize()
         self.clear_scr()
-        print("Nice to meet you " + user_input)
+        self.wizard_talking("Nice to meet you " + user_input)
         #time.sleep(0.5)
-        print("I suggest you choose your personal color")
+        self.wizard_talking("I suggest you choose your personal color")
         user_input = self.set_color(user_input)
         print(user_input)
         return user_input
