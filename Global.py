@@ -41,4 +41,21 @@ class Style():
     font_bold = '\033[1m'
     font_reset = '\u001b[0m'
     font_underline = '\033[4m'
+    Background_default      = "\033[49m"
+    Background_black        = "\033[40m"
+    Background_red          = "\033[41m"
+    Background_green        = "\033[42m"
+    Background_yellow       = "\033[43m"
+    Background_blue         = "\033[44m"
+    Background_magenta      = "\033[45m"
+    Background_cyan         = "\033[46m"
+    Background_lightGray    = "\033[47m"
+    Background_darkGray     = "\033[100m"
+    Background_lightRed     = "\033[101m"
+    Background_lightGreen   = "\033[102m"
+    Background_lightYellow  = "\033[103m"
+    Background_lightBlue    = "\033[104m"
+    Background_lightMagenta = "\033[105m"
+    Background_lightCyan    = "\033[106m"
+    Background_white        = "\033[107m"
 
