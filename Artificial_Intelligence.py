@@ -2,8 +2,46 @@ from Inteligence import *
 
 class Artificial_Intelligence(Inteligence):
 
-    def __init__(self):
+    def __init__(self, board_size):
+        super().__init__(board_size)
+
+    def move(self, enemy):
+        winner = False
+        tie = True
+
+        return winner, tie
+
+    def registration_form(self):
         self.name = "Ork"
+        self.set_random_color()
+    
+    def set_random_color(self):
+        color_is_done = False
+        while color_is_done != True:
+            color_key = self.get_dict_key_name(self.font_color,random.randint(0,len(self.font_color)-1))
+            self.color = self.font_color[color_key]
+            self.b_color = self.background_color[color_key]
+            self.cell = self.b_color + "   " + Style.font_reset
+            self.name = self.color + self.name + Style.font_reset
+            self.font_color.pop(color_key)
+            color_is_done = True
+        
+    
+    def init_ships(self):
+        while self.is_ship_available():
+            ship_name = self.get_ship()
+            row = random.randint(0, len(self.board) - 1)
+            col = random.randint(0, len(self.board) - 1)
+            direction = self.ship_direction[random.randint(0, len(self.ship_direction) - 1)]
+            self.set_ship(row, col, ship_name, direction)
 
-
-    board = [[]]
+    def get_ship(self):
+        ship_is_done = False
+        ship_name = ""
+        while ship_is_done == False:
+            ship_name = self.ship_list[random.randint(0,len(self.ship_list)-1)]
+            if self.ship_count[ship_name] <= 0:
+                continue
+            else:
+                ship_is_done = True
+        return ship_name

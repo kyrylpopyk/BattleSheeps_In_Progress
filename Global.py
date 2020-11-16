@@ -6,14 +6,16 @@ import string
 
 class Global(object):
     wizard_name = "Gandalf"
-    font_color = {"Red":"\033[91m","Green":"\033[92m","Yellow":"\033[93m","Blue":"\033[94m","Purple":"\033[95m","Cyan":"\033[96m","White":"\033[97m"}
+    font_color = {"Red":"\033[91m","Green":"\033[92m","Yellow":"\033[93m","Purple":"\033[95m","White":"\033[97m"}
+    background_color = {"Red":"\033[41m","Green":"\033[42m","Yellow":"\033[43m","Purple":"\033[45m","White":"\033[107m"}
+    ship_direction = ["R","L","U","D"]
     font_reset = "\u001b[0m"
+    alfabet_dict = {}
 
-    def print_colors(self,text):
-        print("\n /------------------\\")
-        for index, value in self.font_color.items():
-            print("|{:<18}-|-{:>18}|".format(value + index + self.font_reset, value + text + self.font_reset))
-        print(" \------------------/\n")
+    def make_dict_alfabet(self):
+        for index in range(len(string.ascii_uppercase)):
+            self.alfabet_dict[string.ascii_uppercase[index]] = index
+
     
     def check_input(self, text):
         user_input = input(text)
@@ -29,6 +31,14 @@ class Global(object):
 
     def wizard_talking(self,text):
         print(self.wizard_name + ": " + text)
+    
+    def get_dict_key_name(self,dictionary = dict,int_key = None):
+        i = 0
+        for key in dictionary.keys():
+            if i == int_key:
+                return key
+            else:
+                i += 1
 
 class Style():
     font_purple = '\033[95m'
@@ -58,4 +68,3 @@ class Style():
     Background_lightMagenta = "\033[105m"
     Background_lightCyan    = "\033[106m"
     Background_white        = "\033[107m"
-
