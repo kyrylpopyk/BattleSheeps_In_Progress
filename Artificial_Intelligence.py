@@ -4,12 +4,17 @@ class Artificial_Intelligence(Inteligence):
 
     def __init__(self, board_size):
         super().__init__(board_size)
+        self.enemy_board = self.create_board([[]], board_size)
+        self.board = self.create_board(self.board, board_size)
+        self.registration_form()
+        self.set_color()
+        self.init_ships()
 
     def move(self, enemy):
         winner = False
         tie = True
 
-        return winner, tie
+        return winner
 
     def registration_form(self):
         self.name = "Ork"
@@ -21,8 +26,8 @@ class Artificial_Intelligence(Inteligence):
             color_key = self.get_dict_key_name(self.font_color,random.randint(0,len(self.font_color)-1))
             self.color = self.font_color[color_key]
             self.b_color = self.background_color[color_key]
-            self.cell = self.b_color + "   " + Style.font_reset
-            self.name = self.color + self.name + Style.font_reset
+            self.cell = self.b_color + "   " + Style.reset
+            self.name = self.color + self.name + Style.reset
             self.font_color.pop(color_key)
             color_is_done = True
         

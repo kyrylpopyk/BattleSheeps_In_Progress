@@ -7,25 +7,20 @@ class Game(Global):
     player_2 = Inteligence
 
     def __init__(self):
-        self.make_dict_alfabet()
         self.board_size = self.get_board_size_from_user()
     
     def game(self, player_1, player_2):
         self.player_1,self.player_2 = self.players_settings(player_1, player_2)
-        player_1.print_both_board(player_2)
-        print(player_1.name)
-        print(player_2.name)
-        """ while True:
-            winner, tie = self.player_1.move(self.player_2)
-            if winner or tie:
-                return self.player_1.finish(winner,tie,self.board)
-            winner, tie = self.player_2.move(self.player_1)
-            if winner or tie:
-                return self.player_2.finish(winner,tie,self.board) """
+        while True:
+            winner = self.player_1.move(self.player_2)
+            if winner:
+                return self.player_1.gratulation(self.player_2)
+            winner = self.player_2.move(self.player_1)
+            if winner:
+                return self.player_2.gratulation(self.player_1)
         input()
     
     def players_settings(self, player_1, player_2):
-        player_1, player_2 = self.game_ships_init(player_1,player_2) 
         rand_pos = random.randint(1, 2)
         if rand_pos == 1:
             return player_1, player_2
@@ -43,11 +38,6 @@ class Game(Global):
             except ValueError():
                 self.wizard_talking("You shall not pass! Only digit :)")
         return size
-
-    def game_ships_init(self,player_1,player_2):
-        player_1.init_ships()
-        player_2.init_ships()
-        return player_1, player_2
     
 
 # Выбор вариации игры

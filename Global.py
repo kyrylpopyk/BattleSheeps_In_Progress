@@ -3,20 +3,14 @@ import sys
 import random
 import time
 import string
+from copy import copy
 
 class Global(object):
     wizard_name = "Gandalf"
     font_color = {"Red":"\033[91m","Green":"\033[92m","Yellow":"\033[93m","Purple":"\033[95m","White":"\033[97m"}
     background_color = {"Red":"\033[41m","Green":"\033[42m","Yellow":"\033[43m","Purple":"\033[45m","White":"\033[107m"}
     ship_direction = ["R","L","U","D"]
-    font_reset = "\u001b[0m"
-    alfabet_dict = {}
-
-    def make_dict_alfabet(self):
-        for index in range(len(string.ascii_uppercase)):
-            self.alfabet_dict[string.ascii_uppercase[index]] = index
-
-    
+    reset = "\u001b[0m"
     def check_input(self, text):
         user_input = input(text)
         if user_input == "quit":
@@ -41,6 +35,7 @@ class Global(object):
                 i += 1
 
 class Style():
+    font_black = '\033[30m'
     font_purple = '\033[95m'
     font_blue = '\033[94m'
     font_cyan = '\033[96m'
@@ -49,9 +44,8 @@ class Style():
     font_red = '\033[91m'
     font_white = '\033[0m'
     font_bold = '\033[1m'
-    font_reset = '\u001b[0m'
+    reset = '\u001b[0m'
     font_underline = '\033[4m'
-    Background_default      = "\033[49m"
     Background_black        = "\033[40m"
     Background_red          = "\033[41m"
     Background_green        = "\033[42m"
