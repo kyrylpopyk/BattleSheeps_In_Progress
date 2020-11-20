@@ -218,6 +218,39 @@ class Inteligence(Global):
         self.print_both_board(enemy)
         print(f"{self.name} is winner!!! Congratulation!!!")
         input()
+    
+    def fire(self, row, col, enemy):
+        if enemy.board[row][col].cell == enemy.cell:
+            self.enemy_board[row][col].cell = self.change_cell_symbole(Style.font_black + "H", enemy)
+            enemy.board[row][col].cell = self.change_cell_symbole(Style.font_black + "H", enemy)
+            self.destroying(row, col, enemy)
+            self.global_ship_count_cell -= 1
+            return True
+        else:
+            enemy.board[row][col].cell = self.change_cell_symbole(Style.font_black + "M", Inteligence())
+            self.enemy_board[row][col].cell = self.change_cell_symbole(Style.font_black + "M", Inteligence())
+            return False
+    
+    def change_cell_symbole(self, symbole_change, player):
+        return player.b_color + f" {symbole_change} " + Style.reset
+    
+    def destroying(self, row, col, enemy):
+        hit_count = 0
+        test1 = enemy.board[row][col].cell_ship_name
+        for i in range(self.ship_size[enemy.board[row][col].cell_ship_name]):
+           coordinate_row = enemy.board[row][col].ship_coordinates[i][0]
+           coordinate_col = enemy.board[row][col].ship_coordinates[i][1]
+           if enemy.board[coordinate_row][coordinate_col].cell == enemy.board[row][col].cell:
+               hit_count += 1
+        if hit_count == self.ship_size[enemy.board[row][col].cell_ship_name]:
+            for i in range(self.ship_size[enemy.board[row][col].cell_ship_name]):
+                coordinate_row = enemy.board[row][col].ship_coordinates[i][0]
+                coordinate_col = enemy.board[row][col].ship_coordinates[i][1]
+                enemy.board[coordinate_row][coordinate_col].cell = self.change_cell_symbole(Style.font_black + "D", enemy)
+                self.enemy_board[coordinate_row][coordinate_col].cell = self.change_cell_symbole(Style.font_black + "D", enemy)
+
+    def get_fire_position(self):
+        pass
 
         
     

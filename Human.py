@@ -11,17 +11,20 @@ class Human(Inteligence):
         self.init_ships()
     
     def move(self, enemy):
+        is_heated = True
         winner = False
-        tie = True
-        enemy_board = enemy.board
-        self.clear_scr()
-        self.print_board(enemy_board)
-        self.print_both_board(enemy)
-        row, col = self.get_fire_position()
-        enemy = self.fire(row, col, enemy)
-        self.clear_scr()
-        self.print_both_board(enemy)
-        winner = self.is_winner()
+        while is_heated:
+            enemy_board = enemy.board
+            self.clear_scr()
+            self.print_board(enemy_board)
+            self.print_both_board(enemy)
+            row, col = self.get_fire_position()
+            is_heated = self.fire(row, col, enemy)
+            self.clear_scr()
+            self.print_both_board(enemy)
+            winner = self.is_winner()
+            if winner:
+                return winner
         return winner
 
     def get_fire_position(self):
@@ -40,23 +43,6 @@ class Human(Inteligence):
             except ValueError:
                 print("Try again")
         return row, col
-    
-    def is_able_to_fire(self, row, col, enemy):
-        return True
-    
-    def fire(self, row, col, enemy = Inteligence()):
-        if enemy.board[row][col].cell == enemy.cell:
-            self.enemy_board[row][col].cell = self.change_cell_symbole(Style.font_black + "H", enemy)
-            enemy.board[row][col].cell = self.change_cell_symbole(Style.font_black + "H", enemy)
-            self.destroying(row, col, enemy)
-            self.global_ship_count_cell -= 1
-        else:
-            enemy.board[row][col].cell = self.change_cell_symbole(Style.font_black + "M", Inteligence())
-            self.enemy_board[row][col].cell = self.change_cell_symbole(Style.font_black + "M", Inteligence())
-        return enemy
-    
-    def change_cell_symbole(self, symbole_change, player = Inteligence()):
-        return player.b_color + f" {symbole_change} " + Style.reset
 
     def registration_form(self):
         self.wizard_talking("Lets start the registration.")
@@ -133,21 +119,6 @@ class Human(Inteligence):
         while direction not in self.ship_direction:
             direction = self.check_input("Direction(L/R/U/D) - ").upper()
         return direction
-    
-    def destroying(self, row, col, enemy = Inteligence()):
-        hit_count = 0
-        test1 = enemy.board[row][col].cell_ship_name
-        for i in range(self.ship_size[enemy.board[row][col].cell_ship_name]):
-           coordinate_row = enemy.board[row][col].ship_coordinates[i][0]
-           coordinate_col = enemy.board[row][col].ship_coordinates[i][1]
-           if enemy.board[coordinate_row][coordinate_col].cell == enemy.board[row][col].cell:
-               hit_count += 1
-        if hit_count == self.ship_size[enemy.board[row][col].cell_ship_name]:
-            for i in range(self.ship_size[enemy.board[row][col].cell_ship_name]):
-                coordinate_row = enemy.board[row][col].ship_coordinates[i][0]
-                coordinate_col = enemy.board[row][col].ship_coordinates[i][1]
-                enemy.board[coordinate_row][coordinate_col].cell = self.change_cell_symbole(Style.font_black + "D", enemy)
-                self.enemy_board[coordinate_row][coordinate_col].cell = self.change_cell_symbole(Style.font_black + "D", enemy)
         
 
 

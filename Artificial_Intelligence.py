@@ -11,10 +11,23 @@ class Artificial_Intelligence(Inteligence):
         self.init_ships()
 
     def move(self, enemy):
+        is_heated = True
         winner = False
-        tie = True
-
+        while is_heated:
+            enemy_board = enemy.board
+            row, col = self.get_fire_position()
+            is_heated = self.fire(row, col, enemy)
+            winner = self.is_winner()
+            if winner:
+                return winner
         return winner
+    
+    def get_fire_position(self):
+        row = None
+        col = ""
+        col = random.randint(0, self.board_size - 1)
+        row = random.randint(0, self.board_size - 1)
+        return row, col
 
     def registration_form(self):
         self.name = "Ork"
@@ -50,3 +63,5 @@ class Artificial_Intelligence(Inteligence):
             else:
                 ship_is_done = True
         return ship_name
+    
+    
