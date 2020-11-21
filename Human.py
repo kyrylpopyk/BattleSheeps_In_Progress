@@ -9,19 +9,18 @@ class Human(Inteligence):
         self.registration_form()
         self.set_color()
         self.init_ships()
+        self.clear_scr()
+        self.print_board(self.board)
+        input("Press to continue...")
     
     def move(self, enemy):
         is_heated = True
         winner = False
         while is_heated:
-            enemy_board = enemy.board
             self.clear_scr()
-            self.print_board(enemy_board)
             self.print_both_board(enemy)
             row, col = self.get_fire_position()
             is_heated = self.fire(row, col, enemy)
-            self.clear_scr()
-            self.print_both_board(enemy)
             winner = self.is_winner()
             if winner:
                 return winner
@@ -31,7 +30,7 @@ class Human(Inteligence):
         row = None
         col = ""
 
-        print("Please input row and col then try to destroy enemy sheeps!")
+        print(f"{self.name} please input row and col then try to destroy enemy sheeps!")
         while col not in self.alfabet_list:
             col = self.check_input(f"Col(A-{self.alfabet_list[self.board_size - 1]}) -  ").upper()
             if col not in self.alfabet_list:
@@ -45,8 +44,9 @@ class Human(Inteligence):
         return row, col
 
     def registration_form(self):
+        self.clear_scr()
         self.wizard_talking("Lets start the registration.")
-        self.name = "Kyryll"#self.check_input("Please input Your name - ").capitalize() test
+        self.name = self.check_input("Please input Your name - ").capitalize()
         self.clear_scr()
         self.wizard_talking("Nice to meet you " + self.name)
         self.wizard_talking("I suggest you choose your personal color")
@@ -56,7 +56,7 @@ class Human(Inteligence):
         self.print_colors(self.name)
         user_input = ""
         while user_input not in list(self.font_color.keys()):
-            user_input = "Red"#self.check_input("Color name - ").capitalize() test
+            user_input = self.check_input("Color name - ").capitalize()
             try:
                 self.color = self.font_color[user_input]
                 self.b_color = self.background_color[user_input]
@@ -111,7 +111,11 @@ class Human(Inteligence):
                     row = int(self.check_input(f"Row(1-{len(self.board)}) - ")) - 1
                 except ValueError:
                     print("Only digit!")
-            direction = self.get_direction()
+            direction = ""
+            if ship_name == "Destroyer":
+                direction = "D"
+            else:
+                direction = self.get_direction()
             self.set_ship(row,col,ship_name,direction)
     
     def get_direction(self):

@@ -15,9 +15,9 @@ class Inteligence(Global):
         self.cell_status = True
         self.cell = Style.Background_lightBlue + "   " + Style.reset
         self.miss_cell = Style.reset + " M " + Style.reset
-        self.ship_count = {"Cruiser":1,"Battleship":1}#{"Destroyer":4,"Submarine":3,"Cruiser":2,"Battleship":1} test
-        self.ship_size = {"Cruiser":3,"Battleship":4}#{"Destroyer":1,"Submarine":2,"Cruiser":3,"Battleship":4} test
-        self.ship_list = ["Cruiser","Battleship"]#["Destroyer","Submarine","Cruiser","Battleship"] test
+        self.ship_count = {"Destroyer":4,"Submarine":3,"Cruiser":2,"Battleship":1}
+        self.ship_size = {"Destroyer":1,"Submarine":2,"Cruiser":3,"Battleship":4}
+        self.ship_list = ["Destroyer","Submarine","Cruiser","Battleship"]
         self.enemy_board = []
     
     def make_dict_alfabet(self, size):
@@ -117,6 +117,7 @@ class Inteligence(Global):
                 for index in range(self.ship_size[ship_name]):
                     self.board[row][col] = copy(self)
                     self.board[row][col].ship_coordinates = ship_coordinates
+                    self.change_cell_status_around(row,col)
                     self.board[row][col].cell_ship_name = ship_name
                     self.global_ship_count_cell += 1
                     col += 1
@@ -149,21 +150,27 @@ class Inteligence(Global):
     def change_cell_status_around(self,row,col):
         self.board[row][col].cell_status = False                            #Middle
         if row - 1 >= 0:                                                    #Up
-            self.board[row-1][col].cell_status = False
+            self.change_color_status_around(row - 1, col)
         if row - 1 >= 0 and col + 1 <= len(self.board)-1:                   #Up-Right
-            self.board[row-1][col+1].cell_status = False
+            self.change_color_status_around(row - 1, col + 1)
         if row - 1 >= 0 and col - 1 >= 0:                                   #Up-Left
-            self.board[row-1][col-1].cell_status = False
+            self.change_color_status_around(row - 1, col - 1)
         if row + 1 <= len(self.board)-1:                                    #Down
-            self.board[row+1][col].cell_status = False           
+            self.change_color_status_around(row + 1, col)       
         if row + 1 <= len(self.board)-1 and col + 1 <= len(self.board)-1:   #Down-Right
-            self.board[row+1][col+1].cell_status = False
+            self.change_color_status_around(row + 1, col + 1)
         if row + 1 <= len(self.board)-1 and col - 1 >= 0:                   #Down-Left
-            self.board[row+1][col-1].cell_status = False
+            self.change_color_status_around(row + 1, col - 1)
         if col + 1 <= len(self.board)-1:                                    #Right
-            self.board[row][col+1].cell_status = False
+            self.change_color_status_around(row, col + 1)
         if col - 1 >= 0:                                                    #Left
-            self.board[row][col-1].cell_status = False
+            self.change_color_status_around(row, col - 1)
+    
+    def change_color_status_around(self, row, col):
+        self.board[row][col].cell_status = False
+        self.clear_scr()
+        self.print_board(self.board)
+
     
 
     def is_able_to_put_sheep(self, row, col, ship_name, direction):

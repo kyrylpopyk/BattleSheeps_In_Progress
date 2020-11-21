@@ -52,6 +52,7 @@ class Artificial_Intelligence(Inteligence):
             col = random.randint(0, len(self.board) - 1)
             direction = self.ship_direction[random.randint(0, len(self.ship_direction) - 1)]
             self.set_ship(row, col, ship_name, direction)
+            self.print_board(self.board)
 
     def get_ship(self):
         ship_is_done = False

@@ -32,7 +32,7 @@ class Game(Global):
         size = None 
         while size == None:
             try:
-                size = 10#int(self.check_input("Size - ")) test
+                size = int(self.check_input("Size - "))
                 if size > len(string.ascii_uppercase)-1:
                     self.wizard_talking("Size is too big, try smaller")
             except ValueError():
