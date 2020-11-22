@@ -13,9 +13,9 @@ class Global(object):
     reset = "\u001b[0m"
     def check_input(self, text):
         user_input = input(text)
-        if user_input == "quit":
+        if user_input.lower() == "quit":
             quit()
-        elif user_input == "restart":
+        elif user_input.lower() == "restart":
             os.execv(sys.executable, ['python'] + sys.argv)
         else:
             return user_input

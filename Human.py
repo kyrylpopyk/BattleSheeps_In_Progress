@@ -18,7 +18,8 @@ class Human(Inteligence):
         winner = False
         while is_heated:
             self.clear_scr()
-            self.print_both_board(enemy)
+            self.print_board(enemy.board)
+            self.print_both_board(self.enemy_board, enemy.name)
             row, col = self.get_fire_position()
             is_heated = self.fire(row, col, enemy)
             winner = self.is_winner()

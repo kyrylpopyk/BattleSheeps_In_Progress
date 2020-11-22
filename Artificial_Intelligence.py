@@ -11,6 +11,9 @@ class Artificial_Intelligence(Inteligence):
         self.init_ships()
 
     def move(self, enemy):
+        self.clear_scr()
+        self.print_both_board(enemy.board, enemy.name)
+        input()
         is_heated = True
         winner = False
         while is_heated:
@@ -52,7 +55,6 @@ class Artificial_Intelligence(Inteligence):
             col = random.randint(0, len(self.board) - 1)
             direction = self.ship_direction[random.randint(0, len(self.ship_direction) - 1)]
             self.set_ship(row, col, ship_name, direction)
-            self.print_board(self.board)
 
     def get_ship(self):
         ship_is_done = False

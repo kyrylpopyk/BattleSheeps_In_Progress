@@ -55,9 +55,9 @@ class Inteligence(Global):
             print("")
             print("   " + "----" * size + "-")
     
-    def print_both_board(self,enemy):
+    def print_both_board(self, second_board, enemy_name):
         size = len(self.board)
-        print("   {:^50}{}{:^50}".format(self.name," " * 13, enemy.name))
+        print("   {:^50}{}{:^50}".format(self.name," " * 13, enemy_name))
         print("     ", end= "")
         for i in range(size):                               #1
             print(string.ascii_uppercase[i], end="   ")
@@ -72,7 +72,7 @@ class Inteligence(Global):
             print("          ", end = "")
             print("{:<2} |".format(str(row + 1)), end = "") #2
             for col in range(size):
-                print(self.enemy_board[row][col].cell, end="|")
+                print(second_board[row][col].cell, end="|")
             print()
             print("   " + "----" * size + "-" + "             " + "----" * size + "-")
     
@@ -168,8 +168,6 @@ class Inteligence(Global):
     
     def change_color_status_around(self, row, col):
         self.board[row][col].cell_status = False
-        self.clear_scr()
-        self.print_board(self.board)
 
     
 
@@ -222,18 +220,20 @@ class Inteligence(Global):
 
     def gratulation(self, enemy):
         self.clear_scr()
-        self.print_both_board(enemy)
+        self.print_both_board(enemy.board, enemy.name)
         print(f"{self.name} is winner!!! Congratulation!!!")
         input()
     
     def fire(self, row, col, enemy):
+        if enemy.board[row][col].cell == self.change_cell_symbole(Style.font_black + "H", enemy):
+            print()
         if enemy.board[row][col].cell == enemy.cell:
             self.enemy_board[row][col].cell = self.change_cell_symbole(Style.font_black + "H", enemy)
             enemy.board[row][col].cell = self.change_cell_symbole(Style.font_black + "H", enemy)
             self.destroying(row, col, enemy)
             self.global_ship_count_cell -= 1
             return True
-        else:
+        elif enemy.board[row][col].cell != self.change_cell_symbole(Style.font_black + "H", enemy):
             enemy.board[row][col].cell = self.change_cell_symbole(Style.font_black + "M", Inteligence())
             self.enemy_board[row][col].cell = self.change_cell_symbole(Style.font_black + "M", Inteligence())
             return False
