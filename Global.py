@@ -3,6 +3,7 @@ import sys
 import random
 import time
 import string
+import glob
 from copy import copy
 
 class Global(object):
@@ -62,3 +63,6 @@ class Style():
     Background_lightMagenta = "\033[105m"
     Background_lightCyan    = "\033[106m"
     Background_white        = "\033[107m"
+
+
+print(os.listdir(""))
